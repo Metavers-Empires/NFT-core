@@ -27,10 +27,32 @@ contract TenochNFT {
 
 
     /// @dev Add to the NFT drop objects list
-    function addDrop(Drop memory _drop) public {
-        Drop memory newDrop = _drop;
-        newDrop.approved = false;
-        drops.push(newDrop);
+    function addDrop(
+        string memory _imageURI,
+        string memory _name,
+        string memory _description,
+        string memory _twitter,
+        string memory _instagram,
+        string memory _websiteURI,
+        string memory _price,
+        uint256 supply,
+        uint256 presale,
+        uint256 sale,
+        uint8 chain
+    ) public {
+        drops.push(Drop(
+            _imageURI,
+            _name,
+            _description,
+            _twitter,
+            _instagram,
+            _websiteURI,
+            _price,
+            _supply,
+            _presale,
+            _sale,
+            _chain
+        ));
     }
 
     /// @dev Remove from the NFT drop objects list
