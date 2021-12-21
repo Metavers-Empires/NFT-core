@@ -21,14 +21,25 @@ contract TenochNFT {
     }
 
     /// @dev Create a list of some sort to hold all the objects
+    Drop[] public drops;
 
     /// @dev Get the NFT drop objects list
 
+
     /// @dev Add to the NFT drop objects list
+    function addDrop(Drop memory _drop) public {
+        Drop memory newDrop = _drop;
+        newDrop.approved = false;
+        drops.push(newDrop);
+    }
 
     /// @dev Remove from the NFT drop objects list
 
+
     /// @dev Approve an NFT drop object to enable displaying
 
+
     /// @dev Clear out all NFT drop objects from list
+
+
 }
