@@ -30,6 +30,35 @@ contract TenochNFT {
     }
 
     /// @dev Add to the NFT drop objects list
+    function addDrop(
+    string memory _imageURI,
+    string memory _name,
+    string memory _description,
+    string memory _twitter,
+    string memory _instagram,
+    string memory _websiteURI,
+    string memory _price,
+    uint256 _supply,
+    uint256 _presale,
+    uint256 _sale,
+    uint8 _chain
+    ) public {
+    drops.push(Drop(
+        _imageURI,
+        _name,
+        _description,
+        _twitter,
+        _instagram,
+        _websiteURI,
+        _price,
+        _supply,
+        _presale,
+        _sale,
+        _chain,
+        false
+        ));
+    }
+
     function updateDrop(
         uint256 _index,
         string memory _imageURI,
@@ -64,7 +93,10 @@ contract TenochNFT {
 
 
     /// @dev Approve an NFT drop object to enable displaying
-    function approveDrop() public
+    function approveDrop(uint256 _index) public view {
+        Drop storage drop = drops[_index];
+        drop.approved = true;
+    }
 
     /// @dev Clear out all NFT drop objects from list
 
