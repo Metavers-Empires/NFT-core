@@ -23,23 +23,24 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.4",
+  defaultNetwork: "rinkeby",
   networks: {
-    mainnet: {
+    /* mainnet: {
       url: process.env.POLYGON_MAINNET || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+    }, */
     rinkeby: {
-      url: process.env.RINKEBY_TESTNET || "",
+      url: process.env.RINKEBY_TESTNET,
       accounts:
-        process.env.PRIVATE_KEY1 !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+        process.env.PRIVATE_KEY1 !== undefined ? [process.env.PRIVATE_KEY1] : [],
+    }, /*
     local: {
       url: process.env.LOCAL_TESTNET || "",
       accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        process.env.PRIVATE_KEY2 !== undefined ? [process.env.PRIVATE_KEY2] : [],
     },
-  },
+  }, */
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
     currency: "USD",
@@ -47,4 +48,5 @@ module.exports = {
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
-};
+}
+}
