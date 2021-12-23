@@ -35,10 +35,10 @@ contract TenochNFT {
         string memory _instagram,
         string memory _websiteURI,
         string memory _price,
-        uint256 supply,
-        uint256 presale,
-        uint256 sale,
-        uint8 chain
+        uint256 _supply,
+        uint256 _presale,
+        uint256 _sale,
+        uint8 _chain
     ) public {
         drops.push(Drop(
             _imageURI,
@@ -51,7 +51,8 @@ contract TenochNFT {
             _supply,
             _presale,
             _sale,
-            _chain
+            _chain,
+            false
         ));
     }
 
