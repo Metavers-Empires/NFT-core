@@ -22,31 +22,55 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
-  defaultNetwork: "rinkeby",
+  defaultNetwork: "hardhat",
   networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545",
+      accounts:
+        proccess.env.PRIVATE_KEY_HARDHAT
+    },
+
+    hardhat: {
+
+    }
+  },  
+
     /* mainnet: {
       url: process.env.POLYGON_MAINNET || "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    }, */
+    }, 
     rinkeby: {
       url: process.env.RINKEBY_TESTNET,
       accounts:
-        process.env.PRIVATE_KEY1 !== undefined ? [process.env.PRIVATE_KEY1] : [],
-    }, /*
+        process.env.PRIVATE_KEY1,
+      }
+  },
+    /*
     local: {
       url: process.env.LOCAL_TESTNET || "",
       accounts:
         process.env.PRIVATE_KEY2 !== undefined ? [process.env.PRIVATE_KEY2] : [],
     },
   }, */
-  gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD",
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      optimizer: {
+        enable: true,
+        runs: 200
+      }
+    }
   },
-  etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+
+  path: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
+    artifacts: "./artifacts"
   },
-}
+  mocha: {
+    timeout: 200000
+  }
+
 }
