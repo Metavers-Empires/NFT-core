@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 
 /// @title Drop of NFT uploading to Polygon
 contract TenochNFT {
+    /// @dev Adding´ address
+    address public owner; 
 
     /// @dev Define an NFT drop object with an struct.
     struct Drop {
@@ -23,7 +25,16 @@ contract TenochNFT {
 
     /// @dev Create a list of some sort to hold all the objects
     Drop[] public drops;
-    mapping (uint256 => address) public user;
+    mapping (uint256 => address) public users;
+
+    constructor() {
+        owner = msg.sender; /// @dev declaring the owner is now equal to msg.sender
+    }
+
+    modifier onlyOwner () {
+        require(msg.sender == owner, "You are not the owner");
+        _;
+    }
 
     /// @dev Get the NFT drop objects list
     function getDrop() public view returns(Drop[] memory) {
@@ -32,71 +43,28 @@ contract TenochNFT {
 
     /// @dev Add to the NFT drop objects list
     function addDrop(
-    string memory _imageURI,
-    string memory _name,
-    string memory _description,
-    string memory _twitter,
-    string memory _instagram,
-    string memory _websiteURI,
-    string memory _price,
-    uint256 _supply,
-    uint256 _presale,
-    uint256 _sale,
-    uint8 _chain
+    Drop memory _drop
     ) public {
-    drops.push(Drop(
-        _imageURI,
-        _name,
-        _description,
-        _twitter,
-        _instagram,
-        _websiteURI,
-        _price,
-        _supply,
-        _presale,
-        _sale,
-        _chain,
-        false
-        ));
+        _drop.approved = false;
+        drops.push(_drop);
         uint256 id = drops.length - 1;
+        users[id] = msg.sender;
     }
 
     /// @dev update the drop into the smart contract
     function updateDrop(
-        uint256 _index,
-        string memory _imageURI,
-        string memory _name,
-        string memory _description,
-        string memory _twitter,
-        string memory _instagram,
-        string memory _websiteURI,
-        string memory _price,
-        uint256 _supply,
-        uint256 _presale,
-        uint256 _sale,
-        uint8 _chain
+        uint256 _index, Drop memory _drop
     ) public {
-        drops[_index] = Drop(
-            _imageURI,
-            _name,
-            _description,
-            _twitter,
-            _instagram,
-            _websiteURI,
-            _price,
-            _supply,
-            _presale,
-            _sale,
-            _chain,
-            false
-        );
+        require(msg.sender == users[_index], "You are not owner of this drop");
+        _drop.approved = false;
+        drops[_index] = _drop;
     }
 
     /// @dev Remove from the NFT drop objects list
 
 
     /// @dev Approve an NFT drop object to enable displaying
-    function approveDrop(uint256 _index) public view {
+    function approveDrop(uint256 _index) public onlyOwner {
         Drop storage drop = drops[_index];
         drop.approved = true;
     }
