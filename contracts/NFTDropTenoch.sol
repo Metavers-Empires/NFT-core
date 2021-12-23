@@ -23,6 +23,7 @@ contract TenochNFT {
 
     /// @dev Create a list of some sort to hold all the objects
     Drop[] public drops;
+    mapping (uint256 => address) public user;
 
     /// @dev Get the NFT drop objects list
     function getDrop() public view returns(Drop[] memory) {
@@ -57,8 +58,10 @@ contract TenochNFT {
         _chain,
         false
         ));
+        uint256 id = drops.length - 1;
     }
 
+    /// @dev update the drop into the smart contract
     function updateDrop(
         uint256 _index,
         string memory _imageURI,
