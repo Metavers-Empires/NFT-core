@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.0;
 
+/// @title Drop of NFT uploading to Polygon
 contract TenochNFT {
 
     /// @dev Define an NFT drop object with an struct.
@@ -24,10 +25,13 @@ contract TenochNFT {
     Drop[] public drops;
 
     /// @dev Get the NFT drop objects list
-
+    function getDrop() public view returns(Drop[] memory) {
+        return drops;
+    }
 
     /// @dev Add to the NFT drop objects list
-    function addDrop(
+    function updateDrop(
+        uint256 _index,
         string memory _imageURI,
         string memory _name,
         string memory _description,
@@ -40,7 +44,7 @@ contract TenochNFT {
         uint256 _sale,
         uint8 _chain
     ) public {
-        drops.push(Drop(
+        drops[_index] = Drop(
             _imageURI,
             _name,
             _description,
@@ -53,14 +57,14 @@ contract TenochNFT {
             _sale,
             _chain,
             false
-        ));
+        );
     }
 
     /// @dev Remove from the NFT drop objects list
 
 
     /// @dev Approve an NFT drop object to enable displaying
-
+    function approveDrop() public
 
     /// @dev Clear out all NFT drop objects from list
 
