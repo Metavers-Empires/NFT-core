@@ -5,35 +5,16 @@ require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
 
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
 module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     localhost: {
       url: "http://127.0.0.1:8545",
-      accounts:
-        proccess.env.PRIVATE_KEY_HARDHAT
+      accounts: 
+            process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-
-    hardhat: {
-
-    }
-  },  
+  },
 
     /* mainnet: {
       url: process.env.POLYGON_MAINNET || "",
@@ -57,12 +38,13 @@ module.exports = {
     version: "0.8.4",
     settings: {
       optimizer: {
-        enable: true,
+        enabled: true,
         runs: 200
       }
     }
   },
 
+  /*
   path: {
     sources: "./contracts",
     tests: "./test",
@@ -70,7 +52,7 @@ module.exports = {
     artifacts: "./artifacts"
   },
   mocha: {
-    timeout: 200000
+    timeout: 20000
   }
-
+  */
 }
