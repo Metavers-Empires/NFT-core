@@ -5,16 +5,19 @@ require("@nomiclabs/hardhat-waffle");
 require("hardhat-gas-reporter");
 require("solidity-coverage");
 
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const INFURA_RINKEBY_KEY = process.env.INFURA_RINKEBY_KEY;
 
 module.exports = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: "testnet",
   networks: {
-    localhost: {
-      url: "http://127.0.0.1:8545",
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${INFURA_RINKEBY_KEY}`,
       accounts: 
-            process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+            [PRIVATE_KEY],
     },
   },
+
 
     /* mainnet: {
       url: process.env.POLYGON_MAINNET || "",
