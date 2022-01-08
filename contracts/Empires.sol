@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./Base64.sol";
+import "./EmpiresPunksDna.sol";
 /// @dev adding herences from OpenZeppelin
 contract EmpiresPunks is ERC721, ERC721Enumerable {
     /// @dev using libraries of Counters
