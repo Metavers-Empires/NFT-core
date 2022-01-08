@@ -6,6 +6,7 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./Base64.sol";
 /// @dev adding herences from OpenZeppelin
 contract EmpiresPunks is ERC721, ERC721Enumerable {
     /// @dev using libraries of Counters
@@ -23,8 +24,26 @@ contract EmpiresPunks is ERC721, ERC721Enumerable {
         uint256 current = _idCounter.current();
         /// @dev checked thar current will be less than MaxSupply
         require(current < maxSupply);
-        _safeMint(msg.sender, tokenId);
+        _safeMint(msg.sender, current);
     }
+
+    function tokenURI(uint256 tokenId) public view override returns(string memory) {
+        require(_exists(tokenId), "ERC721 Metadata: URI query for nonexistent token");
+        /// @dev using Base64 where will go the images JSON
+        string memory jsonURI = Base64.encode(
+            abi.encodePacked(
+                '{ "name": "EmpiresPunks #',
+                tokenId,
+                '", "description": "Empires Punks are the NFT will use in the Metaverse of Empires around the world, developed by ADVANCE BLOCKCHAIN RESEARCH", "image": "',
+                "// TODO: Calculate image URL",
+                "ADVANCE BLOCKCHAIN RESEARCH - EMPIRES-METAVERSE",
+                '"}'
+            )
+        );
+        /// @dev result of the concatenation of data 
+        return string(abi.encodePacked("data:application/json;base64,", jsonURI));
+    }
+
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
         internal
         override(ERC721, ERC721Enumerable)
@@ -40,4 +59,5 @@ contract EmpiresPunks is ERC721, ERC721Enumerable {
     {
         return super.supportsInterface(interfaceId);
     }
+
 }
